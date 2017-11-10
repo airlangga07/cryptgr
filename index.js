@@ -1,22 +1,24 @@
-var crypto = require('crypto'),
-    algorithm = 'aes-256-ctr',
-    password = 'd6F3Efeq';
+// create a function to generate an array of letters
+function generateChars() {
+  let a = 'A'.charCodeAt(0);
+  let z = 'Z'.charCodeAt(0);
+  const arr = [];
 
-function encrypt(text){
-  var cipher = crypto.createCipher(algorithm,password);
-  var crypted = cipher.update(text,'utf8','hex');
-  crypted += cipher.final('hex');
-  return crypted;
+  while (a <= z) {
+    arr.push(String.fromCharCode(a));
+    a++;
+  }
+  return arr;
 }
- 
-function decrypt(text){
-  var decipher = crypto.createDecipher(algorithm,password);
-  var dec = decipher.update(text,'hex','utf8');
-  dec += decipher.final('utf8');
-  return dec;
-}
- 
-var hw = encrypt("hello world")
-// outputs hello world
-console.log(hw);
-console.log(decrypt(hw));
+
+const chars = generateChars();
+
+// define the letter
+const letter = 'E';
+
+// define the shift
+const shift = 23;
+
+const pos = chars.indexOf(letter) + 1;
+const decrypt_post = (pos + shift) % 26;
+console.log(letter + " = " + chars[decrypt_post]);
